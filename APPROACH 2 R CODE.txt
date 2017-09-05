@@ -1,0 +1,32 @@
+gmds <- read.csv("C:/ASHWINI/Personal/ACAD/materials/project 2/gm_dataset.csv",header=TRUE)
+View(gmds)
+summary(gmds)
+
+md1 <- lm(Price~.,data=gmds)
+summary(md1)
+plot(md1)
+
+
+boxcox(lm(Price~.,data=gmds),lambda=seq(-2,2,by=.1))
+md2<-lm((1/sqrt(Price))~.,data=gmds)
+summary(md2)
+par(mfrow=c(2,2))
+plot(md2)
+
+md2df<-data.frame(gmds,fittedval=fitted(md2),resi=resid(md2))
+md2df
+View(md2df)
+plot(md2df)
+
+md3<-lm((log(Price))~.,data=gmds)
+summary(md3)
+par(mfrow=c(2,2))
+plot(md3)
+
+gmdsnew<-gmds[-c(62:65),]
+gmdsnew
+
+md4<-lm((log(Price))~.,data=gmdsnew)
+summary(md4)
+par(mfrow=c(2,2))
+plot(md4)
